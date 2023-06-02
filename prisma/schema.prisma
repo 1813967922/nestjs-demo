@@ -1,0 +1,38 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// 重新生成数据表与模型
+// npx prisma migrate dev --name change
+// 打开数据库可视化界面
+// npx prisma studio
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+/// 用户模型
+model User {
+  /// 用户ID
+  id        String    @id @db.VarChar(16)
+  /// 用户昵称
+  nickName  String    @map("nick_name") @db.VarChar(8)
+  /// 账号
+  userAcct  String    @unique() @map("user_acct") @db.VarChar(11)
+  /// 密码
+  password  String    @db.VarChar(64)
+  /// 盐
+  salt      String    @db.VarChar(32)
+  /// 状态 0正常 1冻结 2删除
+  status    Int       @default(0) @db.TinyInt()
+  /// 邮箱
+  email     String?   @db.VarChar(16)
+  /// 电话
+  mobile    String?   @db.VarChar(11)
+  /// 创建时间
+  createdAt DateTime  @default(now()) @map("created_at")
+  /// 更新时间
+  updatedAt DateTime? @updatedAt @map("updated_at")
+}
