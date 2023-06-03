@@ -1,7 +1,8 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common'
 import { UserService } from './user.service'
 import { ApiOperation, ApiTags } from '@nestjs/swagger'
 import { SaveUserDto } from './dto/save.user.dto'
+import { AuthGuard } from '../../common/guard/auth.guard'
 
 @ApiTags('用户服务')
 @Controller('user')
